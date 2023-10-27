@@ -6,7 +6,86 @@
     <title>Registration Form</title>
     <!-- Import CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-    <link rel="stylesheet" href="Register.css">
+    <style>
+        /* Mengatur font dan latar belakang body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1E1E1E;
+    margin: 0;
+    padding: 0;
+}
+
+/* Mengatur tampilan form registrasi */
+.registration-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #2d2d2d;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Gaya untuk judul form */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ccc;
+}
+
+/* Gaya untuk setiap elemen form-group */
+.form-group {
+    margin-bottom: 20px;
+    color: #ccc;
+}
+
+/* Gaya untuk label input */
+label {
+    display: block;
+    font-weight: bold;
+}
+
+/* Gaya untuk input teks, email, dan kata sandi */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Gaya untuk ikon mata kunci yang dapat diaktifkan dan dinonaktifkan */
+.password-toggle {
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    color: black;
+}
+
+/* Gaya untuk pesan kesalahan */
+.error {
+    color: red;
+    font-size: 14px;
+}
+
+/* Gaya untuk tombol login */
+button[type="button"] {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* Gaya saat tombol login dihover */
+button[type="button"]:hover {
+    background-color: #0056b3;
+}
+
+    </style>
 </head>
 <body>
     <div class="registration-form">
@@ -58,6 +137,91 @@
     </div>
 
     <!-- Sumber kode JavaScript -->
-    <script src="Registrasi.js"></script>
+    <script>
+        // Mengambil elemen-elemen form dan error messages
+const registrationForm = document.getElementById("registration-form");
+const nameInput = document.getElementById("name");
+const nameError = document.getElementById("name-error");
+const emailInput = document.getElementById("email");
+const emailError = document.getElementById("email-error");
+const passwordInput = document.getElementById("password");
+const passwordError = document.getElementById("password-error");
+const confirmPasswordInput = document.getElementById("confirmPassword");
+const confirmPasswordError = document.getElementById("confirmPassword-error");
+
+// Mengambil elemen-elemen tombol toggle mata kunci
+const passwordToggle = document.querySelectorAll(".password-toggle");
+
+// Menambahkan event listener untuk setiap tombol toggle mata kunci
+passwordToggle.forEach(toggle => {
+    toggle.addEventListener("click", function () {
+        togglePasswordVisibility(toggle, toggle.previousElementSibling);
+    });
+});
+
+// Fungsi untuk menampilkan/menyembunyikan password
+function togglePasswordVisibility(toggle, input) {
+    if (input.type === "password") {
+        input.type = "text";
+        toggle.classList.remove("fa-eye");
+        toggle.classList.add("fa-eye-slash");
+    } else {
+        input.type = "password";
+        toggle.classList.remove("fa-eye-slash");
+        toggle.classList.add("fa-eye");
+    }
+}
+
+// Event listener untuk menangani submit form registrasi
+registrationForm.addEventListener("submit", function (e) {
+    nameError.textContent = "";
+    emailError.textContent = "";
+    passwordError.textContent = "";
+    confirmPasswordError.textContent = "";
+
+    if (nameInput.value.trim().length === 0) {
+        e.preventDefault();
+        nameError.textContent = "Nama tidak valid.";
+    } else if (nameInput.value.length > 10 || !/^[A-Za-z]*$/.test(nameInput.value)) {
+        e.preventDefault();
+        nameError.textContent = "Nama maksimal 10 karakter dan hanya berupa huruf.";
+    }
+
+    if (!emailInput.value.includes("@")) {
+        e.preventDefault();
+        emailError.textContent = "Format Email tidak valid";
+    }
+
+    if (passwordInput.value.length < 8 || !/^(?=.*[A-Za-z])(?=.*\d)/.test(passwordInput.value)) {
+        e.preventDefault();
+        passwordError.textContent = "Password harus memiliki 8 karakter berupa huruf dan angka.";
+    }
+
+    if (passwordInput.value !== confirmPasswordInput.value) {
+        e.preventDefault();
+        confirmPasswordError.textContent = "Konfirmasi Password anda tidak sesuai.";
+    }
+});
+
+// Event listener untuk tombol "Register"
+document.getElementById("register-button").addEventListener("click", function () {
+
+    // Validasi apakah semua input telah terisi
+    if (
+        nameInput.value.trim() !== "" &&
+        emailInput.value.trim() !== "" &&
+        passwordInput.value.trim() !== "" &&
+        confirmPasswordInput.value.trim() !== ""
+    ) {
+        // Arahkan pengguna ke halaman login jika semua data terisi
+        window.location.href = "login.html";
+    } else {
+        
+        // Tampilkan pesan kesalahan jika ada input yang kosong
+        alert("Harap isi semua data.");
+    }
+});
+
+    </script>
 </body>
 </html>
