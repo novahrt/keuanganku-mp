@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="Dashboard.css">
+</head>
+<body>
+    <!-- Tombol hamburger untuk membuka/menutup sidebar -->
+    <div class="hamburger" onclick="toggleSidebar()">&#9776;</div>
+
+    <!-- Sidebar -->
+    <div class="side-bar" id="sidebar">
+        <div class="user-p">
+            <img src="logo.png" alt="Logo">
+            <h4>Keuangan KU</h4>
+        </div>
+        <ul>
+            <li>
+                <a href="Dashboard.html">
+                    <i class="fa fa-desktop" aria-hidden="true"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="Income.html">
+                    <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                    <span>Income</span>
+                </a>
+            </li>
+            <li>
+                <a href="Expenses.html">
+                    <i class="fa fa-comment-o" aria-hidden="true"></i>
+                    <span>Expenses</span>
+                </a>
+            </li>
+            <li>
+                <a href="Calendar.html">
+                    <i class="fa fa-comment-o" aria-hidden="true"></i>
+                    <span>Calendar</span>
+                </a>
+            </li>
+            <li>
+                <a href="Chatbot.html">
+                    <i class="fa fa-comment-o" aria-hidden="true"></i>
+                    <span>Financial Planner</span>
+                </a>
+            </li>
+            <li>
+                <a href="Calculator.html">
+                    <i class="fa fa-comment-o" aria-hidden="true"></i>
+                    <span>Calculator</span>
+                </a>
+            </li>
+            <li>
+                <a href="About.html">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="index.html">
+                    <i class="fa fa-power-off" aria-hidden="true"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Konten utama -->
+    <div class="content">
+        <div class="header">
+            <i class="fa fa-bars" onclick="toggleSidebar()"></i>
+            <h1>Selamat Datang di Keuangan Ku</h1>
+        </div>
+
+        <!-- Total Box untuk Income -->
+        <div class="total-box income-box">
+            <h2>Total Data Income</h2>
+            <div class="data-box">
+                <span id="incomeTotal">Rp 0</span>
+                <select id="incomeDateOption" onchange="updateIncomeData()">
+                    <option value="week">Minggu</option>
+                    <option value="month">Bulan</option>
+                    <option value="year">Tahun</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Total Box untuk Expenses -->
+        <div class="total-box expenses-box">
+            <h2>Total Data Expenses</h2>
+            <div class="data-box">
+                <span id="expensesTotal">Rp 0</span>
+                <select id="expensesDateOption" onchange="updateExpensesData()">
+                    <option value="week">Minggu</option>
+                    <option value="month">Bulan</option>
+                    <option value="year">Tahun</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Total Box untuk Tabungan -->
+        <div class="total-box savings-box">
+            <h2>Total Tabungan</h2>
+            <div class="data-box">
+                <span id="savingsTotal">Rp 0</span>
+                <select id="savingsDateOption" onchange="updateSavingsData()">
+                    <option value="week">Minggu</option>
+                    <option value="month">Bulan</option>
+                    <option value="year">Tahun</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Container untuk grafik dan opsi -->
+        <div class="chart-container">
+            <!-- Opsi untuk memilih periode di grafik Pie -->
+            <div class="chart">
+                <select id="pieChartDateOption" onchange="updatePieChart()">
+                    <option value="week">Minggu</option>
+                    <option value="month">Bulan</option>
+                    <option value="year">Tahun</option>
+                </select>
+                <canvas id="myPieChart" width="300" height="250"></canvas>
+            </div>
+
+            <!-- Opsi untuk memilih periode di grafik Batang -->
+            <div class="chart">
+                <select id="barChartDateOption" onchange="updateBarChart()">
+                    <option value="week">Minggu</option>
+                    <option value="month">Bulan</option>
+                    <option value="year">Tahun</option>
+                </select>
+                <canvas id="myBarChart" width="300" height="250"></canvas>
+            </div>
+        </div>
+    </div>
+    <script src="Dashboard.js"></script>
+    <script src="toogle.js"></script>
+</body>
+</html>
